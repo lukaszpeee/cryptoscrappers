@@ -1,6 +1,6 @@
 from datetime import date
 from typing import List
-from dictionaries import profiles
+from data.dictionaries import profiles
 import snscrape.modules.twitter as sntwitter
 import pandas as pd
 

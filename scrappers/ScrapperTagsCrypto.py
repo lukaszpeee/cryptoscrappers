@@ -1,4 +1,4 @@
-from dictionaries import tagscrypto
+from data.dictionaries import tagscrypto
 from datetime import date
 from typing import List
 import snscrape.modules.twitter as sntwitter
@@ -19,5 +19,4 @@ class ScrapperTagsCrypto:
                 self.tweets_crypto.append([tweet.content])
         df = pd.DataFrame(self.tweets_crypto, columns=['Tweet'])
         print(df)
-        
-    
+ 

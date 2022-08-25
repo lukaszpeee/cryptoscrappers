@@ -1,7 +1,7 @@
 import time
-from ScrapperProfiles import ScrapperProfiles
-from ScrapperTagsCrypto import ScrapperTagsCrypto
-from dictionaries import profiles, tagscrypto
+from scrappers.ScrapperProfiles import ScrapperProfiles
+from scrappers.ScrapperTagsCrypto import ScrapperTagsCrypto
+from data.dictionaries import profiles, tagscrypto
 
 
 def main():
