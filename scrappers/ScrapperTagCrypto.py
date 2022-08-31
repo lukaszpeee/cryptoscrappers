@@ -11,7 +11,7 @@ class ScrapperTagCrypto:
         self.until_date = until_date
         self.tweets_crypto = []
         
-    def start_scrapping(self):
+    def start_scrapping_tweets(self):
         for tag in self.tags:
             query = f"(${tag}) until:{self.until_date} since:{self.since_date}"
             for tweet in sntwitter.TwitterSearchScraper(query).get_items():

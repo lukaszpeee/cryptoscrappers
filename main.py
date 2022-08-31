@@ -23,4 +23,4 @@ def main():
 if __name__ == "__main__":
     start_time = time.time()
     main()
-    print("--- %s seconds ---" % (time.time() - start_time))
+    print(f"{(time.time() - start_time)/60} mins")

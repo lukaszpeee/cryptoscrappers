@@ -14,7 +14,7 @@ class ScrapperProfiles:
         self.tweets_profiles = []
         self.extracted_tags = []
 
-    def start_scrapping(self):
+    def start_scrapping_tweets(self):
         for profile in self.profiles:
             query = f"(from:{profile}) until:{self.until_date} since:{self.since_date}"
             for tweet in sntwitter.TwitterSearchScraper(query).get_items():
