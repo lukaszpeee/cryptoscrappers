@@ -884,6 +884,20 @@ profiles_old = ['AtlasChrisx',
                 'Jaap_NL_',
                 'ericzoo']
 
-tagscrypto = ['VRA',
+profiles_tests = ['blockchainedbb',
+                  'capitalist_sd',
+                  'BigCryptoT',
+                  'MiddleChildPabk',
+                  'TechnicalCrypto',
+                  'tradinglord',
+                  'JAcKAL_1982',
+                  'JohnnyZcash',
+                  '7heThreeWords',
+                  'GuyPolio',
+                  'NixlaxV']
+
+tagscrypto_tests = ['VRA',
               'PYR',
               'LPT']
+
+tagscrypto = []

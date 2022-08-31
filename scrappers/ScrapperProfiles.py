@@ -19,17 +19,13 @@ class ScrapperProfiles:
             query = f"(from:{profile}) until:{self.until_date} since:{self.since_date}"
             for tweet in sntwitter.TwitterSearchScraper(query).get_items():
                 self.tweets_profiles.append(tweet.content)
-        df = pd.DataFrame(self.tweets_profiles, columns=['Tweet'])
-        print(df)
 
     def start_extracting_tags(self):
         for tweet in self.tweets_profiles:
-            try:
-                t = re.search("^$", tweet)
-                self.extracted_tags.append(t)
-            except Exception:
-                continue
-        print(self.extracted_tags)            
+            matches = re.findall(r'\$[a-zA-Z]+', tweet)
+            if matches:
+                for match in matches:
+                    self.extracted_tags.append(match)  
         
     
         
