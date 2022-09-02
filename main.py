@@ -1,4 +1,5 @@
 import time
+from raports.ScrapperProfilesRaport import ScrapperProfilesRaport
 from scrappers.ScrapperProfile import ScrapperProfile
 from scrappers.ScrapperProfiles import ScrapperProfiles
 from scrappers.ScrapperTagsCrypto import ScrapperTagsCrypto
@@ -8,16 +9,12 @@ import pandas as pd
 
 
 def main():
+    scrapper_profiles_raport = ScrapperProfilesRaport(
+        '2022-08-01', '2022-08-31', 'C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/raport_sierpien.xlsx')
+    scrapper_profiles_raport.create_scrapper_profiles_raport()
+    
     # scrapper_profile = ScrapperProfile('elonmusk', '2022-08-01', '2022-08-07')
     # scrapper_profile.start_scrapping()
-    
-    scrapper_profiles = ScrapperProfiles(profiles_tests, '2022-08-01', '2022-08-07')
-    scrapper_profiles.start_scrapping_tweets()
-    scrapper_profiles.start_extracting_tags()
-    tags = [tag.upper() for tag in scrapper_profiles.extracted_tags]
-    df_tags = pd.DataFrame(tags, columns=['Tag'])
-    df_counted_tags = df_tags.groupby(['Tag'])['Tag'].count()
-    df_counted_tags.to_excel()
     
     # scrapper_tags_crypto= ScrapperTagsCrypto(tagscrypto, '2022-08-01', '2022-08-02')
     # scrapper_tags_crypto.start_scrapping()
@@ -27,6 +24,7 @@ def main():
 
 
 if __name__ == "__main__":
+    raport_path = 'C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/raport_sierpien.xlsx'
     start_time = time.time()
     main()
     print(f"{(time.time() - start_time)/60} mins")

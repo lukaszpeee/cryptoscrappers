@@ -9,11 +9,14 @@ class ScrapperProfile:
         self.profile = profile
         self.since_date = since_date
         self.until_date = until_date
-        self.tweets_profiles = []
+        self.tweets_profile = []
 
     def start_scrapping_tweets(self):
         query = f"(from:{self.profile}) until:{self.until_date} since:{self.since_date}"
         for tweet in sntwitter.TwitterSearchScraper(query).get_items():
-            self.tweets_profiles.append([tweet.content])
-        df = pd.DataFrame(self.tweets_profiles, columns=['Tweet'])
-        print(df)
+            self.tweets_profile.append([tweet.content])
+        
+    def start_scrapping_tweets_about(self, tag):
+        query = f"(#${tag})(from:{self.profile}) until:{self.until_date} since:{self.since_date}"
+        for tweet in sntwitter.TwitterSearchScraper(query).get_items():
+            self.tweets_profile.append([tweet.content])

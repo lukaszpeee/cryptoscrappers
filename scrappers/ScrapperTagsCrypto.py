@@ -17,6 +17,4 @@ class ScrapperTagsCrypto:
             query = f"(${tag}) until:{self.until_date} since:{self.since_date}"
             for tweet in sntwitter.TwitterSearchScraper(query).get_items():
                 self.tweets_crypto.append(tweet.content)
-        df = pd.DataFrame(self.tweets_crypto, columns=['Tweet'])
-        print(df)
  
