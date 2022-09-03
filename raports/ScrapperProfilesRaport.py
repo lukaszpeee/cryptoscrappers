@@ -12,5 +12,5 @@ class ScrapperProfilesRaport:
     def create_scrapper_profiles_raport(self):
         tags = [tag.upper() for tag in self.crypto_tags]
         df_tags = pd.DataFrame(tags, columns=['Tag'])
-        df_counted_tags = df_tags.groupby(['Tag'])['Count'].count().sort_values(ascending=False)
+        df_counted_tags = df_tags.groupby(['Tag'])['Tag'].count().sort_values(ascending=False)
         df_counted_tags.to_excel(self.raport_path)
