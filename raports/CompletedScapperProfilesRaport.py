@@ -12,6 +12,9 @@ class CompletedScapperProfilesRaport:
         
     def merge_raports(self):
         completed_raport = reduce(lambda x, y: pd.merge(x, y, on = 'Tag'), self.raports_list)
+        return completed_raport
+        
+    def save_completed_raport(self, completed_raport):
         completed_raport.to_excel(self.completed_raport_path)
     
     
