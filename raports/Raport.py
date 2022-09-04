@@ -1,9 +1,8 @@
 from typing import List
 import pandas as pd
-from data.dictionaries import profiles
 
 
-class ScrapperProfilesRaport:
+class Raport:
     
     def __init__(self, month: str, crypto_tags: List, raport_path: str):
         self.month = month

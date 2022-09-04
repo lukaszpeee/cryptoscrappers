@@ -6,8 +6,9 @@ from scrappers.ScrapperProfile import ScrapperProfile
 from scrappers.ScrapperProfiles import ScrapperProfiles
 from scrappers.ScrapperTagsCrypto import ScrapperTagsCrypto
 from scrappers.ScrapperTagCrypto import ScrapperTagCrypto
-from raports.ScrapperProfilesRaport import ScrapperProfilesRaport
-from raports.CompletedScapperProfilesRaport import CompletedScapperProfilesRaport
+from raports.Raport import Raport
+from raports.MergedRaport import MergedRaport
+from raports.VerificationMergedRaport import VerificationMergedRaport
 from data.raports import raport_01, raport_02, raport_03, raport_04, raport_05, raport_06, raport_07, raport_08
 
 
@@ -15,19 +16,25 @@ def main():
     # scrapper_profile = ScrapperProfile('elonmusk', '2022-08-01', '2022-08-07')
     # scrapper_profile.start_scrapping()
     
-    scrapper_profiles = ScrapperProfiles(profiles_tests, '2022-08-01', '2022-08-31')
-    scrapper_profiles.start_scrapping_tweets()
-    scrapper_profiles.start_extracting_tags()
-    scrapper_raport = ScrapperProfilesRaport(
-        'Sierpien',
-        scrapper_profiles.extracted_tags,
-        'C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/raport_test.xlsx')
-    scrapper_raport.create_scrapper_profiles_raport()
+    # scrapper_profiles = ScrapperProfiles(profiles_tests, '2022-08-01', '2022-08-31')
+    # scrapper_profiles.start_scrapping_tweets()
+    # scrapper_profiles.start_extracting_tags()
+    # scrapper_raport = ScrapperProfilesRaport(
+    #     'Sierpien',
+    #     scrapper_profiles.extracted_tags,
+    #     'C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/raport_test.xlsx')
+    # scrapper_raport.create_scrapper_profiles_raport()
     
-    # raports = [raport_01, raport_02, raport_03, raport_04, raport_05, raport_06, raport_07, raport_08]
-    # completed_scrapper_profiles_raport = CompletedScapperProfilesRaport(raports,
-    #     'C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/completed_raport.xlsx')
-    # completed_scrapper_profiles_raport.merge_raports()
+    raports = [raport_01, raport_02, raport_03, raport_04, raport_05, raport_06, raport_07, raport_08]
+    new_raport = MergedRaport(raports,
+        'C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/completed_raport.xlsx')
+    merged_raports = new_raport.merge_raports('Tag')
+    verification_merged_raport = VerificationMergedRaport(merged_raports)
+    check_fal = verification_merged_raport.check_first_and_last_month()
+    check_ftm = verification_merged_raport.check_first_three_months()
+    check_ltm = verification_merged_raport.check_last_three_months()
+    check_all = verification_merged_raport.check_all_months()
+    check_all.to_excel('C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/verification_merged_raport.xlsx')
     
     # scrapper_tags_crypto= ScrapperTagsCrypto(tagscrypto, '2022-08-01', '2022-08-02')
     # scrapper_tags_crypto.start_scrapping()
