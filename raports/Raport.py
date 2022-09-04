@@ -4,14 +4,14 @@ import pandas as pd
 
 class Raport:
     
-    def __init__(self, month: str, crypto_tags: List, raport_path: str):
+    def __init__(self, month: str, scrapper_data: List, raport_path: str):
         self.month = month
-        self.crypto_tags = crypto_tags
+        self.scrapper_data = [x.upper() for x in scrapper_data]
         self.raport_path = raport_path
         
     def create_scrapper_profiles_raport(self):
-        tags = [tag.upper() for tag in self.crypto_tags]
-        df_tags = pd.DataFrame(tags, columns=['Tag'])
+        # do naprawy
+        df_tags = pd.DataFrame(self.scrapper_data, columns=['Tag'])
         df_counted_tags = df_tags.groupby(['Tag'])['Tag'].count().sort_values(ascending=False)
         df_counted_tags = pd.DataFrame(df_counted_tags, columns=['Tag'])
         df_counted_tags = df_counted_tags.rename(columns={'Tag': self.month})
