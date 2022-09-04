@@ -8,7 +8,10 @@ from scrappers.ScrapperTagsCrypto import ScrapperTagsCrypto
 from scrappers.ScrapperTagCrypto import ScrapperTagCrypto
 from raports.Raport import Raport
 from raports.MergedRaport import MergedRaport
-from raports.VerificationMergedRaport import VerificationMergedRaport
+from raports.VerificationMergedRaport import (VeriticationAllMonths,
+                                              VeriticationFirstAndLast,
+                                              VeriticationFirstThreeMonths,
+                                              VeriticationLastFreeMonths)
 from data.raports import raport_01, raport_02, raport_03, raport_04, raport_05, raport_06, raport_07, raport_08
 
 
@@ -28,13 +31,21 @@ def main():
     raports = [raport_01, raport_02, raport_03, raport_04, raport_05, raport_06, raport_07, raport_08]
     new_raport = MergedRaport(raports,
         'C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/completed_raport.xlsx')
+    
     merged_raports = new_raport.merge_raports('Tag')
-    verification_merged_raport = VerificationMergedRaport(merged_raports)
-    check_fal = verification_merged_raport.check_first_and_last_month()
-    check_ftm = verification_merged_raport.check_first_three_months()
-    check_ltm = verification_merged_raport.check_last_three_months()
-    check_all = verification_merged_raport.check_all_months()
-    check_all.to_excel('C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/verification_merged_raport.xlsx')
+    
+    ver_fal = VeriticationFirstAndLast(merged_raports)
+    ver_fal = ver_fal.make_verivication()
+    
+    ver_ftm = VeriticationFirstThreeMonths(ver_fal)
+    ver_ftm = ver_ftm.make_verivication()
+    
+    ver_ltm = VeriticationLastFreeMonths(ver_ftm)
+    ver_ltm = ver_ltm.make_verivication()
+    
+    ver_all = VeriticationAllMonths(ver_ltm)
+    ver_all = ver_all.make_verivication()
+    ver_all.to_excel('C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/verification_merged_raport.xlsx')
     
     # scrapper_tags_crypto= ScrapperTagsCrypto(tagscrypto, '2022-08-01', '2022-08-02')
     # scrapper_tags_crypto.start_scrapping()

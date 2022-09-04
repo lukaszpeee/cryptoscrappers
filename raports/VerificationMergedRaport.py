@@ -1,12 +1,19 @@
 from raports.MergedRaport import MergedRaport
+from abc import ABC, abstractmethod
 
 
-class VerificationMergedRaport:
+class Verification(ABC):
+    @abstractmethod
+    def make_verivication(self, row, checked_rows, ver_name: str):
+        pass
     
-    def __init__(self, merged_raport: MergedRaport):
+class VeriticationFirstAndLast(Verification):
+    ver_name: str = 'First_and_last'
+
+    def __init__(self, merged_raport):
         self.merged_raport = merged_raport
-        
-    def check_first_and_last_month(self):
+    
+    def make_verivication(self):
         checked_rows = []
         number_of_columns = len(self.merged_raport.columns)
         for i, row in self.merged_raport.iterrows():
@@ -14,20 +21,32 @@ class VerificationMergedRaport:
                 checked_rows.append(True)
             else:
                 checked_rows.append(False)
-        self.merged_raport['First_and_last'] = checked_rows
+        self.merged_raport[VeriticationFirstAndLast.ver_name] = checked_rows
         return self.merged_raport
     
-    def check_first_three_months(self):
+class VeriticationFirstThreeMonths(Verification):
+    ver_name: str = 'First_three_months'
+    
+    def __init__(self, merged_raport):
+        self.merged_raport = merged_raport
+    
+    def make_verivication(self):
         checked_rows = []
         for i, row in self.merged_raport.iterrows():
             if row['Styczeń'] < row['Luty'] < row['Marzec']:
                 checked_rows.append(True)
             else:
                 checked_rows.append(False)
-        self.merged_raport['First_three_months'] = checked_rows
+        self.merged_raport[VeriticationFirstThreeMonths.ver_name] = checked_rows
         return self.merged_raport
+        
+class VeriticationLastFreeMonths(Verification):
+    ver_name: str = 'Last_three_months'
     
-    def check_last_three_months(self):
+    def __init__(self, merged_raport):
+        self.merged_raport = merged_raport
+    
+    def make_verivication(self):
         checked_rows = []
         number_of_columns = len(self.merged_raport.columns)
         for i, row in self.merged_raport.iterrows():
@@ -35,10 +54,16 @@ class VerificationMergedRaport:
                 checked_rows.append(True)
             else:
                 checked_rows.append(False)
-        self.merged_raport['Last_free'] = checked_rows
+        self.merged_raport[VeriticationLastFreeMonths.ver_name] = checked_rows
         return self.merged_raport
+        
+class VeriticationAllMonths(Verification):
+    ver_name: str = 'All_months'
     
-    def check_all_months(self):
+    def __init__(self, merged_raport):
+        self.merged_raport = merged_raport
+      
+    def make_verivication(self):
         checked_rows = []
         number_of_columns = len(self.merged_raport.columns)
         for i, row in self.merged_raport.iterrows():
@@ -46,5 +71,5 @@ class VerificationMergedRaport:
                 checked_rows.append(True)
             else:
                 checked_rows.append(False)
-        self.merged_raport['All_months'] = checked_rows
+        self.merged_raport[VeriticationAllMonths.ver_name] = checked_rows
         return self.merged_raport
