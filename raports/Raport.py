@@ -9,10 +9,10 @@ class Raport:
         self.scrapper_data = [x.upper() for x in scrapper_data]
         self.raport_path = raport_path
         
-    def create_scrapper_profiles_raport(self):
-        # do naprawy
+    def create_raport(self):
         df_tags = pd.DataFrame(self.scrapper_data, columns=['Tag'])
         df_counted_tags = df_tags.groupby(['Tag'])['Tag'].count().sort_values(ascending=False)
         df_counted_tags = pd.DataFrame(df_counted_tags, columns=['Tag'])
         df_counted_tags = df_counted_tags.rename(columns={'Tag': self.month})
         df_counted_tags.to_excel(self.raport_path)
+        

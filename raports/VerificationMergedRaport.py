@@ -15,9 +15,9 @@ class VeriticationFirstAndLast(Verification):
     
     def make_verivication(self):
         checked_rows = []
-        number_of_columns = len(self.merged_raport.columns)
+        number_of_columns = int(len(self.merged_raport.columns))
         for i, row in self.merged_raport.iterrows():
-            if row['Styczeń'] < row['Sierpień']:
+            if row.iloc[2] < row.iloc[number_of_columns]:
                 checked_rows.append(True)
             else:
                 checked_rows.append(False)
@@ -33,7 +33,7 @@ class VeriticationFirstThreeMonths(Verification):
     def make_verivication(self):
         checked_rows = []
         for i, row in self.merged_raport.iterrows():
-            if row['Styczeń'] < row['Luty'] < row['Marzec']:
+            if row.iloc[0] < row.iloc[1] < row.iloc[2]:
                 checked_rows.append(True)
             else:
                 checked_rows.append(False)
@@ -48,9 +48,9 @@ class VeriticationLastFreeMonths(Verification):
     
     def make_verivication(self):
         checked_rows = []
-        number_of_columns = len(self.merged_raport.columns)
+        number_of_columns = int(len(self.merged_raport.columns))
         for i, row in self.merged_raport.iterrows():
-            if row['Czerwiec'] < row['Lipiec'] < row['Sierpień']:
+            if row.iloc[number_of_columns - 2] < row.iloc[number_of_columns - 1] < row.iloc[number_of_columns]:
                 checked_rows.append(True)
             else:
                 checked_rows.append(False)
@@ -65,9 +65,10 @@ class VeriticationAllMonths(Verification):
       
     def make_verivication(self):
         checked_rows = []
-        number_of_columns = len(self.merged_raport.columns)
         for i, row in self.merged_raport.iterrows():
-            if row['Styczeń'] < row['Luty'] < row['Marzec'] < row['Kwiecień'] < row['Maj'] < row['Czerwiec'] < row['Lipiec'] < row['Sierpień']:
+            if row.iloc[0] < row.iloc[1] < row.iloc[2] \
+                < row.iloc[3] < row.iloc[4] < row.iloc[5] \
+                    < row.iloc[6] < row.iloc[7]:
                 checked_rows.append(True)
             else:
                 checked_rows.append(False)

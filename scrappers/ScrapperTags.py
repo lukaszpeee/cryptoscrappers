@@ -5,16 +5,17 @@ import snscrape.modules.twitter as sntwitter
 import pandas as pd
 
 
-class ScrapperTagsCrypto:
+class ScrapperTags:
     def __init__(self, tagscrypto: List, since_date: date, until_date: date):
         self.tagscrypto = [x.lower() for x in tagscrypto] + [x.upper() for x in tagscrypto]
         self.since_date = since_date
         self.until_date = until_date
-        self.tweets_crypto = []
         
-    def start_scrapping_tweets(self):
+        
+    def start_adding_tags(self):
+        added_tags = []
         for tag in self.tagscrypto:
             query = f"(${tag}) until:{self.until_date} since:{self.since_date}"
             for tweet in sntwitter.TwitterSearchScraper(query).get_items():
-                self.tweets_crypto.append(tweet.content)
- 
+                self.added_tags.append(tag)
+        return added_tags
