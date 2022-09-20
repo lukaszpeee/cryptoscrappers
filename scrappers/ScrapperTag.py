@@ -1,8 +1,5 @@
 from datetime import date
-from typing import List
 import snscrape.modules.twitter as sntwitter
-import pandas as pd
-
 
 class ScrapperTag:
     def __init__(self, tagcrypto: str, since_date: date, until_date: date):
@@ -16,5 +13,5 @@ class ScrapperTag:
         for tag in self.tagcrypto:
             query = f"(${tag}) until:{self.until_date} since:{self.since_date}"
             for tweet in sntwitter.TwitterSearchScraper(query).get_items():
-                self.added_tags.append(tag)
+                added_tags.append(tag)
         return added_tags
