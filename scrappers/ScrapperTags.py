@@ -10,7 +10,6 @@ class ScrapperTags:
         self.since_date = since_date
         self.until_date = until_date
         
-        
     def start_adding_tags(self):
         added_tags = []
         for tag in self.tagscrypto:

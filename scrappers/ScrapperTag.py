@@ -6,8 +6,7 @@ class ScrapperTag:
         self.tagcrypto = [tagcrypto.upper(), tagcrypto.lower()]
         self.since_date = since_date
         self.until_date = until_date
-        
-        
+
     def start_counting_tweets(self):
         added_tags = []
         for tag in self.tagcrypto:

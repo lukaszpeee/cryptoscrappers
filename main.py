@@ -10,6 +10,7 @@ from raports.VerificationMergedRaport import (VeriticationFirstAndLast,
                                               VeriticationAllMonths)
 from scrappers.ScrapperProfile import ScrapperProfile
 from scrappers.ScrapperProfiles import ScrapperProfiles
+from scrappers.ScrapperProfilesAbout import ScrapperProfilesAbout
 from scrappers.ScrapperTags import ScrapperTags
 from scrappers.ScrapperTag import ScrapperTag
 from data.raports import (raport_01,
@@ -51,14 +52,48 @@ def main_scrapper_profiles():
     
     
 def main_scrapper_tags():
-    scrapper_tags = ScrapperTags(tagscrypto_tests, '2022-01-01', '2022-01-31')
+    scrapper_tags = ScrapperTags(tagscrypto, '2022-01-01', '2022-01-31')
     scrapped_tags = scrapper_tags.start_adding_tags()
-    scrapper_profiles_raport = Raport('Styczen', scrapped_tags, f'{path}/raport_scrapper_tags.xlsx')
+    scrapper_profiles_raport = Raport('Styczen', scrapped_tags, f'{path}/raport_scrapper_tags_styczen.xlsx')
     scrapper_profiles_raport.create_raport()
+    
+
+def main_scrapper_profiles_about():
+    scrapper_profiles_about = ScrapperProfiles(profiles, '2021-06-01', '2021-06-30')
+    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$PYR')
+    scrapper_profiles_raport = Raport('Czerwiec', scrapped_tags, f'{path}/scrapper_profiles_about/raport_czerwiec_PYR.xlsx')
+    scrapper_profiles_raport.create_raport()
+    
+    scrapper_profiles_about = ScrapperProfiles(profiles, '2021-07-01', '2021-07-31')
+    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$PYR')
+    scrapper_profiles_raport = Raport('Lipiec', scrapped_tags, f'{path}/scrapper_profiles_about/raport_lipiec_PYR.xlsx')
+    scrapper_profiles_raport.create_raport()
+    
+    scrapper_profiles_about = ScrapperProfiles(profiles, '2021-08-01', '2021-08-31')
+    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$PYR')
+    scrapper_profiles_raport = Raport('Sierpien', scrapped_tags, f'{path}/scrapper_profiles_about/raport_sierpien_PYR.xlsx')
+    scrapper_profiles_raport.create_raport()
+    
+    scrapper_profiles_about = ScrapperProfiles(profiles, '2021-09-01', '2021-09-30')
+    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$PYR')
+    scrapper_profiles_raport = Raport('Wrzesien', scrapped_tags, f'{path}/scrapper_profiles_about/raport_wrzesien_PYR.xlsx')
+    scrapper_profiles_raport.create_raport()
+    
+    scrapper_profiles_about = ScrapperProfiles(profiles, '2021-10-01', '2021-10-31')
+    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$PYR')
+    scrapper_profiles_raport = Raport('Pazdziernik', scrapped_tags, f'{path}/scrapper_profiles_about/raport_pazdziernik_PYR.xlsx')
+    scrapper_profiles_raport.create_raport()
+    
+    scrapper_profiles_about = ScrapperProfiles(profiles, '2021-11-01', '2021-11-30')
+    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$PYR')
+    scrapper_profiles_raport = Raport('Listopad', scrapped_tags, f'{path}/scrapper_profiles_about/raport_listopad_PYR.xlsx')
+    scrapper_profiles_raport.create_raport()
+
 
 if __name__ == "__main__":
     path = 'C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile'
     start_time = time.time()
     # main_scrapper_profiles()
-    main_scrapper_tags()
+    # main_scrapper_tags()
+    main_scrapper_profiles_about()
     print(f"{(time.time() - start_time)/60} mins")
