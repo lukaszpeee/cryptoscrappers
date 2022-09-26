@@ -3,7 +3,6 @@ import pandas as pd
 
 
 class Raport:
-    
     def __init__(self, month: str, scrapper_data: List, raport_path: str):
         self.month = month
         self.scrapper_data = [x.upper() for x in scrapper_data]

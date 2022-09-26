@@ -1,4 +1,3 @@
-from data.dictionaries import tagscrypto
 from datetime import date
 from typing import List
 import snscrape.modules.twitter as sntwitter

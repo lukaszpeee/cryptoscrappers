@@ -1,6 +1,7 @@
 from datetime import date
 import snscrape.modules.twitter as sntwitter
 
+
 class ScrapperTag:
     def __init__(self, tagcrypto: str, since_date: date, until_date: date):
         self.tagcrypto = [tagcrypto.upper(), tagcrypto.lower()]

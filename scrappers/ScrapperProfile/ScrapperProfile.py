@@ -10,7 +10,7 @@ class ScrapperProfile:
         self.since_date = since_date
         self.until_date = until_date
 
-    def start_scrapping_tweets(self):
+    def start_scrapping_tweets_content(self):
         tweets_profile = []
         query = f"(from:{self.profile}) until:{self.until_date} since:{self.since_date}"
         for tweet in sntwitter.TwitterSearchScraper(query).get_items():

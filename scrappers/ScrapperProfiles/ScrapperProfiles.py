@@ -1,9 +1,7 @@
 from datetime import date
 from typing import List
-from data.dictionaries import profiles
 import snscrape.modules.twitter as sntwitter
 import re
-import pandas as pd
 
 
 class ScrapperProfiles:
@@ -12,7 +10,7 @@ class ScrapperProfiles:
         self.since_date = since_date
         self.until_date = until_date
 
-    def start_scrapping_tweets(self):
+    def start_scrapping_tweets_content(self):
         tweets_profiles = []
         for profile in self.profiles:
             query = f"(from:{profile}) until:{self.until_date} since:{self.since_date}"
@@ -36,7 +34,3 @@ class ScrapperProfiles:
                 for match in matches:
                     extracted_tags.append(match)
         return extracted_tags
-        
-
-        
-    
