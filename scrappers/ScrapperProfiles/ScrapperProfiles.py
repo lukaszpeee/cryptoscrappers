@@ -18,6 +18,14 @@ class ScrapperProfiles:
                 tweets_profiles.append(tweet.content)
         return tweets_profiles
 
+    def start_scrapping_tweets_date_author_content(self):
+        tweets_profiles = []
+        for profile in self.profiles:
+            query = f"(from:{profile}) until:{self.until_date} since:{self.since_date}"
+            for tweet in sntwitter.TwitterSearchScraper(query).get_items():
+                tweets_profiles.append([tweet.date, tweet.user.username, tweet.content])
+        return tweets_profiles
+
     def start_scrapping_tweets_about_tag(self, tag: str):
         tweets_profiles_about_tag = []
         for profile in self.profiles:

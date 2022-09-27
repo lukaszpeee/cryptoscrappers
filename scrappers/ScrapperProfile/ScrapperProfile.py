@@ -1,7 +1,5 @@
 import snscrape.modules.twitter as sntwitter
 from datetime import date
-from typing import List
-import pandas as pd
 
 
 class ScrapperProfile:

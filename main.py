@@ -1,11 +1,12 @@
 import time
 
-from scrappers.ScrapperProfiles.main import main_scrapper_profiles_about
+from scrappers.ScrapperProfiles.usecase import main_scrapper_profiles_content_and_author
 
 if __name__ == "__main__":
     path = 'C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile'
     start_time = time.time()
     # main_scrapper_profiles()
     # main_scrapper_tags()
-    main_scrapper_profiles_about()
+    # main_scrapper_profiles_about()
+    main_scrapper_profiles_content_and_author()
     print(f"{(time.time() - start_time)/60} mins")
