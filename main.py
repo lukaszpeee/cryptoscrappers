@@ -8,5 +8,5 @@ if __name__ == "__main__":
     # main_scrapper_profiles()
     # main_scrapper_tags()
     # main_scrapper_profiles_about()
-    main_scrapper_profiles_content_and_author()
+    main_scrapper_profiles_content_and_author(path)
     print(f"{(time.time() - start_time)/60} mins")

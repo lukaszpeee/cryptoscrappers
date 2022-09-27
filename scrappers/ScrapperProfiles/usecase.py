@@ -9,7 +9,7 @@ from raports.VerificationMergedRaport import VeriticationFirstAndLast, Veriticat
 from scrappers.ScrapperProfiles.ScrapperProfiles import ScrapperProfiles
 
 
-def main_scrapper_profiles():
+def main_scrapper_profiles(path):
     scrapper_profiles = ScrapperProfiles(profiles_tests, '2022-08-01', '2022-08-07')
     scrapped_tweets = scrapper_profiles.start_scrapping_tweets_content()
     extraced_tags = scrapper_profiles.start_extracting_tags(scrapped_tweets)
@@ -35,49 +35,57 @@ def main_scrapper_profiles():
     ver_all.to_excel(f'{path}/test_verification_merged_raport.xlsx')
 
 
-def main_scrapper_profiles_content_and_author():
+def main_scrapper_profiles_content_and_author(path):
     scrapper_profiles = ScrapperProfiles(profiles, '2022-01-01', '2022-01-31')
     scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
     scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_styczen')
+    scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
+    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_styczen.xlsx')
 
     scrapper_profiles = ScrapperProfiles(profiles, '2022-02-01', '2022-01-28')
     scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
     scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_luty')
+    scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
+    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_luty.xlsx')
 
     scrapper_profiles = ScrapperProfiles(profiles, '2022-03-01', '2022-03-31')
     scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
     scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_marzec')
+    scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
+    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_marzec.xlsx')
 
     scrapper_profiles = ScrapperProfiles(profiles, '2022-04-01', '2022-04-30')
     scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
     scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_kwiecien')
+    scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
+    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_kwiecien.xlsx')
 
     scrapper_profiles = ScrapperProfiles(profiles, '2022-05-01', '2022-05-31')
     scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
     scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_maj')
+    scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
+    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_maj.xlsx')
 
     scrapper_profiles = ScrapperProfiles(profiles, '2022-06-01', '2022-06-30')
     scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
     scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_czerwiec')
+    scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
+    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_czerwiec.xlsx')
 
     scrapper_profiles = ScrapperProfiles(profiles, '2022-07-01', '2022-07-31')
     scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
     scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_lipiec')
+    scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
+    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_lipiec.xlsx')
 
     scrapper_profiles = ScrapperProfiles(profiles, '2022-08-01', '2022-08-31')
     scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
     scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_sierpien')
+    scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
+    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_sierpien.xlsx')
 
 
-def main_scrapper_profiles_about():
+def main_scrapper_profiles_about(path):
     print("I")
     scrapper_profiles_about = ScrapperProfiles(profiles, '2020-11-01', '2020-11-30')
     scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$MATIC')
