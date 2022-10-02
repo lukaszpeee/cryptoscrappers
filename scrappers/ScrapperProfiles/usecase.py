@@ -43,7 +43,6 @@ def main_scrapper_profiles_for_month(path):
     scrapper_profiles_raport.create_raport()
 
 
-
 def main_scrapper_profiles_content_and_author(path):
     # scrapper_profiles = ScrapperProfiles(profiles, '2022-01-01', '2022-01-31')
     # scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
