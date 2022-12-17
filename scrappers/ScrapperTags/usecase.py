@@ -1,5 +1,5 @@
 from data.dictionaries import tagscrypto
-from raports.Raport import Raport
+from raports.TagRaport import Raport
 from scrappers.ScrapperTags.ScrapperTags import ScrapperTags
 
 

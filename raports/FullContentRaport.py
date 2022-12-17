@@ -1,0 +1,15 @@
+from typing import List
+
+import pandas as pd
+from pandas import DataFrame
+
+
+class FullContentRaport:
+    def __init__(self, month: str, scrapper_data: List, raport_path: str):
+        self.month = month
+        self.scrapper_data = scrapper_data
+        self.raport_path = raport_path
+
+    def create_full_content_raport(self) -> DataFrame:
+        df_content = pd.DataFrame(self.scrapper_data, columns=['Data', 'User', 'Tweet'])
+        df_content.to_excel(self.raport_path)

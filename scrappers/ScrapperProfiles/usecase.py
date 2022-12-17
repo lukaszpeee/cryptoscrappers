@@ -1,137 +1,24 @@
-import pandas as pd
+from pandas import DataFrame
 
-from data.dictionaries import profiles_tests, profiles
-from data.raports import raport_01, raport_02, raport_03, raport_04, raport_05, raport_06, raport_07, raport_08
-from raports.MergedRaport import MergedRaport
-from raports.Raport import Raport
-from raports.VerificationMergedRaport import VeriticationFirstAndLast, VeriticationFirstThreeMonths, \
-    VeriticationLastFreeMonths, VeriticationAllMonths
+from data.dictionaries import profiles
+from raports.FullContentRaport import FullContentRaport
+from raports.TagRaport import TagRaport
 from scrappers.ScrapperProfiles.ScrapperProfiles import ScrapperProfiles
 
 
-def main_scrapper_profiles_and_raport(path):
-    scrapper_profiles = ScrapperProfiles(profiles_tests, '2022-08-01', '2022-08-07')
+def main_scrapper_profiles_for_month(path: str) -> DataFrame:
+    scrapper_profiles = ScrapperProfiles(profiles, '2022-11-01', '2022-11-30')
     scrapped_tweets = scrapper_profiles.start_scrapping_tweets_content()
     extraced_tags = scrapper_profiles.start_extracting_tags(scrapped_tweets)
-    scrapper_profiles_raport = Raport('Sierpien', extraced_tags, f'{path}/raport_test2.xlsx')
-    scrapper_profiles_raport.create_raport()
-    
-    raports = [raport_01, raport_02, raport_03, raport_04, raport_05, raport_06, raport_07, raport_08]
-    new_raport = MergedRaport(raports, f'{path}/completed_raport.xlsx')
-    
-    merged_raports = new_raport.merge_raports('Tag')
-    
-    ver_fal = VeriticationFirstAndLast(merged_raports)
-    ver_fal = ver_fal.make_verivication()
-    
-    ver_ftm = VeriticationFirstThreeMonths(ver_fal)
-    ver_ftm = ver_ftm.make_verivication()
-    
-    ver_ltm = VeriticationLastFreeMonths(ver_ftm)
-    ver_ltm = ver_ltm.make_verivication()
-    
-    ver_all = VeriticationAllMonths(ver_ltm)
-    ver_all = ver_all.make_verivication
-    ver_all.to_excel(f'{path}/test_verification_merged_raport.xlsx')
+    scrapper_profiles_raport = TagRaport('Listopad', extraced_tags, f'{path}/raport_tag_listopad.xlsx')
+    scrapper_profiles_raport.create_tag_raport()
 
 
-def main_scrapper_profiles_for_month(path):
-    scrapper_profiles = ScrapperProfiles(profiles, '2022-09-01', '2022-09-30')
-    scrapped_tweets = scrapper_profiles.start_scrapping_tweets_content()
-    extraced_tags = scrapper_profiles.start_extracting_tags(scrapped_tweets)
-    scrapper_profiles_raport = Raport('Wrzesien', extraced_tags, f'{path}/raport_wrzesien.xlsx')
-    scrapper_profiles_raport.create_raport()
+def main_scrapper_tweets_date_author_content_for_month(path: str) -> DataFrame:
+    scrapper_profiles = ScrapperProfiles(profiles, '2022-11-01', '2022-11-30')
+    tweets_date_author_content = scrapper_profiles.start_scrapping_tweets_date_author_content()
 
+    tweets_date_author_content_raport = FullContentRaport('Listopad', tweets_date_author_content,
+                                                          f'{path}/raport_full_listopad.xlsx')
+    tweets_date_author_content_raport.create_full_content_raport()
 
-def main_scrapper_profiles_content_and_author(path):
-    # scrapper_profiles = ScrapperProfiles(profiles, '2022-01-01', '2022-01-31')
-    # scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
-    # scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    # scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
-    # scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_styczen.xlsx')
-
-    # scrapper_profiles = ScrapperProfiles(profiles, '2022-02-01', '2022-02-28')
-    # scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
-    # scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    # scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
-    # scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_luty.xlsx')
-
-    # scrapper_profiles = ScrapperProfiles(profiles, '2022-03-01', '2022-03-31')
-    # scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
-    # scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    # scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
-    # scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_marzec.xlsx')
-    #
-    # scrapper_profiles = ScrapperProfiles(profiles, '2022-04-01', '2022-04-30')
-    # scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
-    # scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    # scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
-    # scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_kwiecien.xlsx')
-
-    # scrapper_profiles = ScrapperProfiles(profiles, '2022-05-01', '2022-05-31')
-    # scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
-    # scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    # scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
-    # scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_maj.xlsx')
-    #
-    # scrapper_profiles = ScrapperProfiles(profiles, '2022-06-01', '2022-06-30')
-    # scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
-    # scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    # scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
-    # scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_czerwiec.xlsx')
-
-    scrapper_profiles = ScrapperProfiles(profiles, '2022-07-01', '2022-07-31')
-    scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
-    scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
-    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_lipiec.xlsx')
-
-    scrapper_profiles = ScrapperProfiles(profiles, '2022-08-01', '2022-08-31')
-    scrapped_tweets = scrapper_profiles.start_scrapping_tweets_date_author_content()
-    scrapped_tweets_df = pd.DataFrame(scrapped_tweets, columns=['Date', 'User', 'Tweet'])
-    scrapped_tweets_df['Date'] = scrapped_tweets_df['Date'].apply(lambda a: pd.to_datetime(a).date())
-    scrapped_tweets_df.to_excel(f'{path}/raporty_autor_content/profiles_content_and_author_sierpien.xlsx')
-
-
-def main_scrapper_profiles_about(path):
-    print("I")
-    scrapper_profiles_about = ScrapperProfiles(profiles, '2020-11-01', '2020-11-30')
-    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$MATIC')
-    scrapper_profiles_raport = Raport('Listopad', scrapped_tags,
-                                      f'{path}/scrapper_profiles_about/raport_listopad_MATIC.xlsx')
-    scrapper_profiles_raport.create_raport()
-    
-    print("II")
-    scrapper_profiles_about = ScrapperProfiles(profiles, '2020-12-01', '2020-12-31')
-    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$MATIC')
-    scrapper_profiles_raport = Raport('Grudzien', scrapped_tags,
-                                      f'{path}/scrapper_profiles_about/raport_grudzien_MATIC.xlsx')
-    scrapper_profiles_raport.create_raport()
-    
-    print("III")
-    scrapper_profiles_about = ScrapperProfiles(profiles, '2021-01-01', '2021-01-31')
-    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$MATIC')
-    scrapper_profiles_raport = Raport('Styczen', scrapped_tags,
-                                      f'{path}/scrapper_profiles_about/raport_styczen_MATIC.xlsx')
-    scrapper_profiles_raport.create_raport()
-    
-    print("IV")
-    scrapper_profiles_about = ScrapperProfiles(profiles, '2021-02-01', '2021-02-28')
-    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$MATIC')
-    scrapper_profiles_raport = Raport('Luty', scrapped_tags,
-                                      f'{path}/scrapper_profiles_about/raport_luty_MATIC.xlsx')
-    scrapper_profiles_raport.create_raport()
-    
-    print("V")
-    scrapper_profiles_about = ScrapperProfiles(profiles, '2021-03-01', '2021-03-31')
-    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$MATIC')
-    scrapper_profiles_raport = Raport('Marzec', scrapped_tags,
-                                      f'{path}/scrapper_profiles_about/raport_marzec_MATIC.xlsx')
-    scrapper_profiles_raport.create_raport()
-    
-    print("VI")
-    scrapper_profiles_about = ScrapperProfiles(profiles, '2021-11-01', '2021-11-30')
-    scrapped_tags = scrapper_profiles_about.start_scrapping_tweets_about_tag('$MATIC')
-    scrapper_profiles_raport = Raport('Listopad', scrapped_tags,
-                                      f'{path}/scrapper_profiles_about/raport_listopad_MATIC.xlsx')
-    scrapper_profiles_raport.create_raport()
