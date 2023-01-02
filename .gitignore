@@ -2,4 +2,6 @@
 env/
 __pycache__
 main.py
-plans.txt
+raport.py
+dictionaries.py
+usecase.py
