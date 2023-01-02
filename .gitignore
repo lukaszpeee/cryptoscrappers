@@ -1,7 +1,7 @@
 .vscode
 env/
 __pycache__
-main.py
-raport.py
-dictionaries.py
-usecase.py
+.main.py
+.raport.py
+.dictionaries.py
+*.usecase.py
