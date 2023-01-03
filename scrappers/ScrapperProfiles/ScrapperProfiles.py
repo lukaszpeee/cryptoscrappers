@@ -26,7 +26,7 @@ class ScrapperProfiles:
                 tweets_profiles.append([tweet.date, tweet.user.username, tweet.content])
         return tweets_profiles
 
-    def start_extracting_tags(self, tweets_profiles: List[str]):
+    def start_extracting_tags(self, tweets_profiles: List[str]) -> List[str]:
         extracted_tags = []
         for tweet in tweets_profiles:
             matches = re.findall(r'\$[a-zA-Z]+', tweet)
@@ -34,3 +34,7 @@ class ScrapperProfiles:
                 for match in matches:
                     extracted_tags.append(match)
         return extracted_tags
+
+    @staticmethod
+    def remove_stock_tags(list_of_tags: List[str], list_of_stock_tags: List[str]) -> List[str]:
+        return [tag for tag in list_of_tags if tag not in list_of_stock_tags]
