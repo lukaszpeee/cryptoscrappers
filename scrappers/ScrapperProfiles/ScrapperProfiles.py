@@ -23,7 +23,11 @@ class ScrapperProfiles:
         for profile in self.profiles:
             query = f"(from:{profile}) until:{self.until_date} since:{self.since_date}"
             for tweet in sntwitter.TwitterSearchScraper(query).get_items():
-                tweets_profiles.append([tweet.date, tweet.user.username, tweet.content])
+                if re.findall(r'\$[a-zA-Z]+', tweet.content):
+                    print(tweet.content)
+                    tweets_profiles.append([tweet.date, tweet.user.username, tweet.content])
+                else:
+                    continue
         return tweets_profiles
 
     def start_extracting_tags(self, tweets_profiles: List[str]) -> List[str]:
