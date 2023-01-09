@@ -4,9 +4,9 @@ from pandas import DataFrame
 
 
 class TagRaport:
-    def __init__(self, month: str, scrapper_data: List, raport_path: str):
+    def __init__(self, month: str, scrapper_data: List[str], raport_path: str):
         self.month = month
-        self.scrapper_data = [x.upper() for x in scrapper_data]
+        self.scrapper_data = scrapper_data
         self.raport_path = raport_path
         
     def create_tag_raport(self) -> DataFrame:
