@@ -6,9 +6,6 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from scipy.special import softmax
 
 
-plik_testowy = pd.read_excel('C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/raport_full_grudzien_test.xlsx')
-
-
 class SentimentAnalyzer:
 
     def __init__(self, twitter_data: DataFrame):
@@ -51,8 +48,3 @@ class SentimentAnalyzer:
         for i in range(len(sentiment_scores)):
             dictor[self.labels[i]] = sentiment_scores[i]
         return max(dictor, key=dictor.get)
-
-
-sentiment_analyzer = SentimentAnalyzer(twitter_data=plik_testowy)
-sentiment_column = sentiment_analyzer.analyze_tweets_sentiment()
-print(sentiment_column)
