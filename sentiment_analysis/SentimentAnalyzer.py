@@ -33,8 +33,8 @@ class SentimentAnalyzer:
             elif word.startswith('http'):
                 word = "http"
             tweet_words.append(word)
-        tweet_proc = " ".join(tweet_words)
-        return tweet_proc
+        prepared_tweet = " ".join(tweet_words)
+        return prepared_tweet
 
     def _analyze_sentiment(self, prepared_tweet_content: str) -> List[str]:
         encoded_tweet = self.tokenizer(prepared_tweet_content, return_tensors='pt')
@@ -48,3 +48,10 @@ class SentimentAnalyzer:
         for i in range(len(sentiment_scores)):
             dictor[self.labels[i]] = sentiment_scores[i]
         return max(dictor, key=dictor.get)
+
+
+data_excel = pd.read_excel('C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/raport_full_grudzien_test.xlsx')
+sentiment_class = SentimentAnalyzer(data_excel)
+data_excel['Sentiment'] = sentiment_class.analyze_tweets_sentiment()
+print(data_excel.head())
+
