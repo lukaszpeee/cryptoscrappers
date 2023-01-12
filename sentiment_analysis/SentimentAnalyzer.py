@@ -49,9 +49,3 @@ class SentimentAnalyzer:
             dictor[self.labels[i]] = sentiment_scores[i]
         return max(dictor, key=dictor.get)
 
-
-data_excel = pd.read_excel('C:/Users/rogal/Desktop/Kryptowaluty/raporty_profile/raport_full_grudzien_test.xlsx')
-sentiment_class = SentimentAnalyzer(data_excel)
-data_excel['Sentiment'] = sentiment_class.analyze_tweets_sentiment()
-print(data_excel.head())
-
