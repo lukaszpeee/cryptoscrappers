@@ -1,6 +1,5 @@
 from typing import List
 
-import pandas as pd
 from pandas import DataFrame
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from scipy.special import softmax

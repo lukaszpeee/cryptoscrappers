@@ -17,7 +17,7 @@ class ScrapperProfiles:
         for profile in self.profiles:
             query = f"(from:{profile}) until:{self.until_date} since:{self.since_date}"
             for tweet in sntwitter.TwitterSearchScraper(query).get_items():
-                tweets_profiles.append(tweet.content)
+                tweets_profiles.append(tweet.rawContent)
         return tweets_profiles
 
     def start_scrapping_tweets_date_author_content(self) -> List[str]:
@@ -25,13 +25,13 @@ class ScrapperProfiles:
         for profile in self.profiles:
             query = f"(from:{profile}) until:{self.until_date} since:{self.since_date}"
             for tweet in sntwitter.TwitterSearchScraper(query).get_items():
-                tweet_tags = re.findall(r'\$[a-zA-Z]+', tweet.content)
-                verified_tweet_tags = self.remove_stock_tags(tweet_tags)
-                verified_tweet_tags_no_duplicates = self.remove_duplicates(verified_tweet_tags)
+                tweet_tags = re.findall(r'\$[a-zA-Z]+', tweet.rawContent)
+                verified_tweet_tags = self._remove_stock_tags(tweet_tags)
+                verified_tweet_tags_no_duplicates = self._remove_duplicates(verified_tweet_tags)
                 if verified_tweet_tags:
                     tweets_content.append([tweet.date,
                                            tweet.user.username,
-                                           tweet.content,
+                                           tweet.rawContent,
                                            verified_tweet_tags_no_duplicates])
         return tweets_content
 
@@ -42,14 +42,14 @@ class ScrapperProfiles:
             if matches:
                 for match in matches:
                     extracted_tags.append(match)
-        verified_tags = self.remove_stock_tags(extracted_tags)
+        verified_tags = self._remove_stock_tags(extracted_tags)
         return verified_tags
 
     @staticmethod
-    def remove_stock_tags(list_of_tags: List[str]) -> List[str]:
+    def _remove_stock_tags(list_of_tags: List[str]) -> List[str]:
         upper_list_of_tags = [tag.upper() for tag in list_of_tags]
         return [tag for tag in upper_list_of_tags if tag not in stock_tags]
 
     @staticmethod
-    def remove_duplicates(list_of_tags: List[str]) -> List[str]:
+    def _remove_duplicates(list_of_tags: List[str]) -> List[str]:
         return list(set(list_of_tags))
