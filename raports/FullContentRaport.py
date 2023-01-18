@@ -9,6 +9,6 @@ class FullContentRaport:
         self._scrapper_data = scrapper_data
 
     def create_full_content_raport(self) -> DataFrame:
-        df_content = pd.DataFrame(self._scrapper_data, columns=['Date', 'User', 'Tweet', 'Tags'])
-        df_content['Date'] = df_content['Date'].apply(lambda a: pd.to_datetime(a).date())
-        return df_content
+        df_full_content_raport = pd.DataFrame(self._scrapper_data, columns=['Date', 'User', 'Tweet', 'Tags'])
+        df_full_content_raport['Date'] = df_full_content_raport['Date'].apply(lambda a: pd.to_datetime(a).date())
+        return df_full_content_raport

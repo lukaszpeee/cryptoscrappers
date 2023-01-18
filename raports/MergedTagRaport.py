@@ -8,8 +8,8 @@ from pandas import DataFrame
 class MergedTagRaport:
     def __init__(self, raports_list: List[DataFrame]):
         self._raports_list = raports_list
-        
-    def merge_raports(self) -> DataFrame:
-        completed_raport = reduce(lambda left, right: pd.merge(left, right, on=['Tag'], how='outer'),
-                                  self._raports_list)
-        return completed_raport
+
+    def create_merged_tag_raport(self) -> DataFrame:
+        merged_df_tag_raports = reduce(lambda left, right: pd.merge(left, right, on=['Tag'], how='outer'),
+                                       self._raports_list)
+        return merged_df_tag_raports
