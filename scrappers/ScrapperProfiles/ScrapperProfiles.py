@@ -3,6 +3,8 @@ from typing import List
 import snscrape.modules.twitter as sntwitter
 import re
 
+from tqdm import tqdm
+
 from data.dictionaries import stock_tags
 
 
@@ -14,7 +16,7 @@ class ScrapperProfiles:
 
     def start_scrapping_tweets_content(self) -> List[str]:
         tweets_profiles = []
-        for profile in self._profiles_names:
+        for profile in tqdm(self._profiles_names, desc='Scraping profiles'):
             query = f"(from:{profile}) until:{self._end_date} since:{self._start_date}"
             for tweet in sntwitter.TwitterSearchScraper(query).get_items():
                 tweets_profiles.append(tweet.rawContent)
