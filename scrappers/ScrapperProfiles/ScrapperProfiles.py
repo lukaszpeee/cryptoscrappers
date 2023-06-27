@@ -1,8 +1,8 @@
-from datetime import date
 from typing import List
 import snscrape.modules.twitter as sntwitter
 import re
 
+from snscrape.base import ScraperException
 from tqdm import tqdm
 
 from data.dictionaries import stock_tags
@@ -18,8 +18,12 @@ class ScrapperProfiles:
         tweets_profiles = []
         for profile in tqdm(self._profiles_names, desc='Scraping profiles'):
             query = f"(from:{profile}) until:{self._end_date} since:{self._start_date}"
-            for tweet in sntwitter.TwitterSearchScraper(query).get_items():
-                tweets_profiles.append(tweet.rawContent)
+            try:
+                print(f"Scrapping profile: {profile}")
+                for tweet in sntwitter.TwitterSearchScraper(query).get_items():
+                    tweets_profiles.append(tweet.rawContent)
+            except ScraperException:
+                print(f"There was a problem during scrapping {profile}'s tweets.")
         return tweets_profiles
 
     def start_scrapping_tweets_date_author_content(self) -> List[str]:
@@ -33,7 +37,7 @@ class ScrapperProfiles:
                 else:
                     continue
                 if verified_tweet_tags:
-                    verified_tweet_tags_no_duplicates = self._remove_duplicates(verified_tweet_tags)
+                    verified_tweet_tags_no_duplicates = list(set(verified_tweet_tags))
                     tweets_content.append([tweet.date,
                                            tweet.user.username,
                                            tweet.rawContent,
@@ -56,7 +60,3 @@ class ScrapperProfiles:
     def _remove_stock_tags(list_of_tags: List[str]) -> List[str]:
         upper_list_of_tags = [tag.upper() for tag in list_of_tags]
         return [tag for tag in upper_list_of_tags if tag not in stock_tags]
-
-    @staticmethod
-    def _remove_duplicates(list_of_tags: List[str]) -> List[str]:
-        return list(set(list_of_tags))
